@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import styles from './form.module.css';
 
 class Register extends React.Component {
@@ -50,7 +50,10 @@ class Register extends React.Component {
                         error: res
                     })
                 } else {
-                    this.props.handleViewChange('home', res)
+                    this.setState({
+                        error: ''
+                    });
+                    this.props.handleChangeLogStatus(res, true)
                 }         
             })
             .catch(() => this.setState({
@@ -59,24 +62,18 @@ class Register extends React.Component {
         }
     }
     render() {
-        return (
-            <Fragment>
-               <button className={styles.backBtn}>Back</button>
-               <button className={styles.otherForm} onClick={() => this.props.handleViewChange('login')}>Login</button>
-               <div className={styles.formContainer}>
-                    <h3 className={styles.formHeader}>Register</h3>
-                    <label className={styles.formLabel} htmlFor='name'>Name</label>
-                    <input className={styles.formInput} type='text' id='name' placeholder='Enter your name' value={this.state.name} onChange={this.handleInputChange}/>
-                    <label className={styles.formLabel} htmlFor='email'>Email</label>
-                    <input className={styles.formInput} type='email' id='email' placeholder='Enter your email' value={this.state.email} onChange={this.handleInputChange}/>
-                    <label className={styles.formLabel} htmlFor='password'>Password</label>
-                    <input className={styles.formInput} type='password' id='password' placeholder='Minimum 6 characters' value={this.state.password} onChange={this.handleInputChange}/>
-                    {this.state.error? <p className={styles.formError}>{this.state.error}</p>:null}
-                    <button className={styles.formButton} onClick={this.handleRegister}>Register</button>
-                    <p className={styles.formMsg}>Already have an account? <button onClick={() => this.props.handleViewChange('login')}>Login</button></p>
-               </div>
-               
-           </Fragment> 
+        return (     
+            <div className={styles.formContainer} id='register-form'>
+                <h3 className={styles.formHeader}>Register</h3>
+                <label className={styles.formLabel} htmlFor='name'>Name</label>
+                <input className={styles.formInput} type='text' id='name' placeholder='Enter your name' value={this.state.name} onChange={this.handleInputChange}/>
+                <label className={styles.formLabel} htmlFor='email'>Email</label>
+                <input className={styles.formInput} type='email' id='email' placeholder='Enter your email' value={this.state.email} onChange={this.handleInputChange}/>
+                <label className={styles.formLabel} htmlFor='password'>Password</label>
+                <input className={styles.formInput} type='password' id='password' placeholder='Minimum 6 characters' value={this.state.password} onChange={this.handleInputChange}/>
+                {this.state.error? <p className={styles.formError}>{this.state.error}</p>:null}
+                <button className={styles.formButton} onClick={this.handleRegister}>Register</button>
+            </div> 
         )
     }
 }

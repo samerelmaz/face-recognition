@@ -1,42 +1,16 @@
-.otherForm {
-    position: absolute;
-    right: 50px;
-    top: 40px;
-    padding: 5px 10px;
-    border: 1px ridge black;
-    border-radius: 5px;
-}
-.otherForm:hover {
-    background-color: gray;
-}
-.backBtn {
-    position: absolute;
-    left: 50px;
-    top: 40px;
-    padding: 5px 10px;
-    border: 1px ridge black;
-    border-radius: 5px;
-}
-.backBtn:hover {
-    background-color: gray;
-}
 .formContainer {
-    border: 1px ridge black;
-    width: 400px;
-    margin: 0 auto;
-    padding: 20px 20px 10px 20px;
+    border: 2px solid white;
+    width: 350px;
+    padding: 15px 20px 10px 20px;
     border-radius: 5px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-top: 15px;
 }
 .formHeader {
     text-align: center;
     margin-bottom: 10px;
     padding-bottom: 5px;
     font-size: 1.7rem;
-    border-bottom: 1px ridge black;
+    border-bottom: 2px solid white;
 }
 .formLabel {
     display: block;
@@ -48,29 +22,31 @@
     width: 100%;
     padding: 10px 7px;
     border-radius: 3px;
-    border: 1px ridge black;
+    border: 1px solid transparent;
     font-size: 1rem;
 }
 .formError {
-    background-color: rgba(255, 0, 0, 0.75);
+    background-color: rgba(255, 0, 0, 0.7);
     color: white;
     padding:  3px 5px;
     width: fit-content;
     border-radius: 2px;
-    margin: 10px auto;
+    margin: 5px auto;
     font-size: 0.9rem;
 }
 .formButton {
-    padding: 5px 20px;
+    padding: 8px 20px;
     display: block;
-    margin: 10px auto 5px auto;
+    margin: 15px auto 5px auto;
     border-radius: 5px;
-    border: 1px ridge black;
+    border: 2px solid white;
     font-size: 1.05rem;
+    background-color: transparent;
+    color: white;
+    font-weight: 600;
 }
 .formButton:hover {
-    background-color: gray;
-}
-.formMsg {
-    text-align: center;
+    background-color: white;
+    color: #7C5DE8;
+    cursor: pointer;
 }

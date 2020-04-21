@@ -1,7 +1,5 @@
 import React, {Fragment} from 'react';
 import Welcome from './Welcome';
-import Login from './Login';
-import Register from './Register';
 import Home from './Home';
 import Particles from 'react-particles-js';
 import styles from './app.module.css';
@@ -16,7 +14,7 @@ const particlesParams = {
         }
       },
       "color": {
-        "value": '#000000'
+        "value": '#ffffff'
       },
       "shape": {
         "type": "polygon",
@@ -51,7 +49,7 @@ const particlesParams = {
       "line_linked": {
         "enable": true,
         "distance": 150,
-        "color": "#000000",
+        "color": "#ffffff",
         "opacity": 0.4,
         "width": 1
       },
@@ -115,33 +113,23 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            prevView: 'welcome',
-            view: 'welcome',//cambiar a welcome
-            userInfo: {}
+            userInfo: null,
+            isLogged: true
         }
-        this.handleViewChange = this.handleViewChange.bind(this);
-        this.handleBackClick = this.handleBackClick.bind(this);
+        this.handleChangeLogStatus = this.handleChangeLogStatus.bind(this);
     }
-    handleViewChange(newView, userInfo = {}) {
-        this.setState(prevState => {
-            return {
-                prevView: prevState.view,
-                view: newView,
-                userInfo: userInfo
-            }
+    handleChangeLogStatus(userInfo, isLogged) {
+        this.setState({
+          userInfo: userInfo,
+          isLogged: isLogged
         })
-    }
-    handleBackClick() {
-
     }
     render() {
         return (
             <Fragment>
                 <Particles params={particlesParams} className={styles.particles}/>
-                {this.state.view === 'welcome'? <Welcome handleViewChange={this.handleViewChange} /> :
-                this.state.view === 'register'? <Register handleViewChange={this.handleViewChange} /> :
-                this.state.view === 'login'? <Login handleViewChange={this.handleViewChange} /> :
-                <Home handleViewChange={this.handleViewChange} userInfo={this.state.userInfo} />}
+                {this.state.isLogged? <Home handleChangeLogStatus={this.handleChangeLogStatus} userInfo={this.state.userInfo} />:
+                <Welcome handleChangeLogStatus={this.handleChangeLogStatus}/>}
             </Fragment>
         )
     }

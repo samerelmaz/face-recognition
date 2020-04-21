@@ -1,21 +1,54 @@
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imgContainer {
+    width: 400px;
+    order: 2;
+    margin-left: 200px;
+}
+.img {
+    width: 100%;
+    height: auto;
+}
 .welcomeContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    overflow: auto;
 }
 .welcomeHeader {
     font-size: 3.5rem;
     text-align: center;
+    color: white;
+    font-weight: 400;
 }
 .welcomeSubheader {
     font-size: 2rem;
-    text-align: center
-}
-.btnContainer {
     text-align: center;
+    color: white;
+    font-weight: 300;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    color: white;
 }
 .welcomeBtn {
-    padding: 10px 20px;
-
+    padding: 10px 25px;
+    margin: 15px 30px;
+    border-radius: 5px;
+    border: 2px solid white;
+    font-size: 1.2rem;
+    background-color: transparent;
+    color: white;
+    font-weight: 600;
+}
+.welcomeBtn:hover {
+    background-color: white;
+    color: #7C5DE8;
+    cursor: pointer;
 }
