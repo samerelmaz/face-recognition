@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const Clarifai = require('clarifai');
+const cors = require('cors');
 const knex = require('knex')({
     client: 'pg',
     connection: {
@@ -17,6 +18,7 @@ const clarifai = new Clarifai.App({apiKey: '05137dd3fdf84c358ce2b97f779c8fc6'});
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.json('works');
@@ -25,20 +27,31 @@ app.post('/signin', (req, res) => {
     const {email, password} = req.body;
     if (email !== '' && password !== '') {
         knex('login').select('*').where('email', '=', email)
-        .then((loginInfo) => {
-            const hash = loginInfo[0].hash;
-            if (bcrypt.compareSync(password, hash)) {
-                knex('users').join('images', 'users.user_id', '=', 'images.user_id').select('users.name', 'users.user_id', 'images.url', 'images.image_id')
-                .then(userInfo => res.json(userInfo))
-                .catch(() => res.json('Error retrieving user information'))
+        .then(loginInfo => {
+            if (bcrypt.compareSync(password, loginInfo[0].hash)) {
+                let userInfo;
+                knex.select('*').from('users').where('user_id', '=', loginInfo[0].user_id)
+                .then(user => {
+                    userInfo = user[0]
+                    return userInfo;
+                })
+                .then(() => {
+                    return knex.select('url', 'boxes', 'image_id').from('images').where('user_id', '=', loginInfo[0].user_id)
+                    .then(imgs => {
+                        userInfo=Object.assign(userInfo, {imgArr: imgs})
+                    })
+                    .catch(err => console.log('Error obtaining images is --- ', err))
+                }) //can't do sql joins because if a certain user does not have previous images then the query result will be empty, and I need at least the user
+                .then(() => res.json(userInfo))
+                .catch(() => res.json('Failed to get user information.'))
             } else {
-                return res.status(400).json('Wrong password')
+                res.status(400).json('Wrong password.')
             }
         })
-        .catch(() => {
-            res.status(400).json('Email does not exist')
-        })
-    } 
+        .catch(() => res.status(400).json("Email doesn't exist."))
+    } else {
+        res.status(400).json("Login information can't be empty.")
+    }
 });
 app.post('/register', (req, res) => {
     const {name, email, password} = req.body;
@@ -46,7 +59,7 @@ app.post('/register', (req, res) => {
     const simplePasswordRegex=/\S{6,}/;
     if (name !== '' && simpleEmailRegex.test(email) && simplePasswordRegex.test(password)) {
         const saltRounds = 10;
-        const hash = bcrypt.hashSync(email, saltRounds);
+        const hash = bcrypt.hashSync(password, saltRounds);
         knex('users').select('user_id').orderBy('user_id','desc').limit(1).then((userId) => { 
             if (userId.length === 0) {
                 return 0;
@@ -72,9 +85,9 @@ app.post('/register', (req, res) => {
                 .catch(trx.rollback)
             })
             .then((userInfo) => res.json(userInfo[0]))
-            .catch(() => res.status(400).json('Email already exists'))
+            .catch(() => res.status(400).json('Email already exists.'))
         })
-        .catch(() => res.status(400).json('Fetching id failed'))
+        .catch(() => res.status(400).json('Something went wrong.'))
     }
 });
 app.post('/image', (req, res) => {
@@ -105,7 +118,7 @@ app.post('/image', (req, res) => {
                 boxes: JSON.stringify(boundingBox),
             })
         })
-        .catch((err) => console.log('The error that ocurred is ------------- : ', err))
+        .catch(err => console.log('The error that ocurred is ------------- : ', err))
         .then(() => res.json(boundingBox)) // sending response even if adding to db failed, that's why this then is after the catch.
     })
     .catch(() => {

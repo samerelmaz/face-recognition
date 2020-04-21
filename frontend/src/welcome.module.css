@@ -1,0 +1,21 @@
+.welcomeContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.welcomeHeader {
+    font-size: 3.5rem;
+    text-align: center;
+}
+.welcomeSubheader {
+    font-size: 2rem;
+    text-align: center
+}
+.btnContainer {
+    text-align: center;
+}
+.welcomeBtn {
+    padding: 10px 20px;
+
+}

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Image from '/Image';
+import Image from './Image';
 
 class Home extends React.Component {
     constructor(props) {
@@ -16,12 +16,16 @@ class Home extends React.Component {
     handleUrlInput(ev) {
         const imgUrl=ev.target.value;
         this.setState({
-            url: imgUrl
+            url: imgUrl,
+            showImage: false,
+            boundingBox: null,
+            error: ''
         })
     }
     handleDetectClick() {
         this.setState({
-            showImage: true
+            showImage: true, 
+            error: ''
         });
         const imgInfo = {
             url: this.state.url,
@@ -36,13 +40,24 @@ class Home extends React.Component {
         })
         .then(res => res.json())
         .then(res => {
-
+            if (res === 'Could not detect any face. Try another picture.') {
+                this.setState({
+                    error: res
+                })
+            } else {
+                this.setState({
+                    error: '',
+                    boundingBox: res
+                })
+            }
         })
+        .catch(err => console.log(err))
     }
     render() {
         return (
             <Fragment>
                 <button onClick={() => this.props.handleViewChange('welcome')}>Logout</button>
+                <h1>Hello, {this.props.userInfo.name}</h1>
                 <input type='text' placeholder="Paste your face image link here" value={this.state.url} onChange={this.handleUrlInput}></input>
                 <button onClick={this.handleDetectClick}>Detect</button>
                 {this.state.showImage?<Image url={this.state.url} boundingBox={this.state.boundingBox}/>:null}

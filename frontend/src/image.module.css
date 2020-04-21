@@ -1,0 +1,10 @@
+.imgContainer {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+}
+.faceImg {
+    width: 100%;
+    height: auto;
+    border-radius: 10px
+}

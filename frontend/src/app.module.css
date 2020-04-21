@@ -1,0 +1,16 @@
+:global * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+:global body {
+    /*background-color: rgb(159, 159, 248);*/
+}
+.particles {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
