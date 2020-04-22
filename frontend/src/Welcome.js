@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './welcome.module.css';
 import Login from './Login';
 import Register from './Register';
-import img from './images/1.jpg';
 
 class Welcome extends React.Component {
     constructor(props) {
@@ -38,23 +37,28 @@ class Welcome extends React.Component {
             }
         })
     }
-    render() {
-        return (
-            <div className={styles.flex}>
-                <div className={styles.imgContainer}>
-                    <img src={img} alt='img' className={styles.img}/>
-                </div>
-                <div className={styles.welcomeContainer} id='welcome-container'>
-                    <h1 className={styles.welcomeHeader}>Future Brain</h1>
-                    <h2 className={styles.welcomeSubheader}>A smart face-recognition app</h2>
-                    <div className={styles.container}>
-                        {this.state.isLoginClicked?<Login handleChangeLogStatus={this.props.handleChangeLogStatus}/>:
-                        <button className={styles.welcomeBtn} onClick={this.handleLoginClick}>Sign in</button>}
-                        {this.state.isRegisterClicked?<Register handleChangeLogStatus={this.props.handleChangeLogStatus}/>:
-                        <button className={styles.welcomeBtn} onClick={this.handleRegisterClick}>Register</button>}
-                    </div>  
-                </div>
-            </div> 
+    render() { 
+        return (     
+            <div className={this.state.isRegisterClicked || this.state.isLoginClicked?
+            styles.welcomeContainer+' '+styles.welcomeContainerMobile:
+            styles.welcomeContainer} id='welcome-container'>
+                <h1 className={styles.welcomeHeader}>Future Brain</h1>
+                <h2 className={styles.welcomeSubheader}>A smart face-recognition app</h2>
+                <div className={this.state.isRegisterClicked || this.state.isLoginClicked?styles.container+' '+styles.containerMobile:styles.container}>
+                    {this.state.isLoginClicked?<Login handleChangeLogStatus={this.props.handleChangeLogStatus}/>:
+                    <button className={this.state.isRegisterClicked || this.state.isLoginClicked?
+                        styles.welcomeBtn + ' ' + styles.signInBtn + ' ' + styles.welcomeBtnMobile
+                        :styles.welcomeBtn + ' ' + styles.signInBtn} onClick={this.handleLoginClick}>
+                        Sign in
+                    </button>}
+                    {this.state.isRegisterClicked?<Register handleChangeLogStatus={this.props.handleChangeLogStatus}/>:
+                    <button className={this.state.isRegisterClicked || this.state.isLoginClicked?
+                        styles.welcomeBtn + ' ' + styles.registerBtn + ' ' + styles.welcomeBtnMobile
+                        :styles.welcomeBtn + ' ' + styles.registerBtn} onClick={this.handleRegisterClick}>
+                        Register
+                    </button>}
+                </div>  
+            </div>   
         )
     }    
 }

@@ -1,9 +1,9 @@
 .formContainer {
     border: 2px solid white;
-    width: 350px;
-    padding: 15px 20px 10px 20px;
+    width: 335px;
+    padding: 15px 20px;
     border-radius: 5px;
-    margin-top: 15px;
+    margin-bottom: 15px;
 }
 .formHeader {
     text-align: center;
@@ -11,6 +11,7 @@
     padding-bottom: 5px;
     font-size: 1.7rem;
     border-bottom: 2px solid white;
+    font-weight: 600;
 }
 .formLabel {
     display: block;
@@ -28,7 +29,7 @@
 .formError {
     background-color: rgba(255, 0, 0, 0.7);
     color: white;
-    padding:  3px 5px;
+    padding: 3px 5px;
     width: fit-content;
     border-radius: 2px;
     margin: 5px auto;
@@ -37,7 +38,7 @@
 .formButton {
     padding: 8px 20px;
     display: block;
-    margin: 15px auto 5px auto;
+    margin: 15px auto 0 auto;
     border-radius: 5px;
     border: 2px solid white;
     font-size: 1.05rem;
@@ -49,4 +50,65 @@
     background-color: white;
     color: #7C5DE8;
     cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+    .formContainer {
+        width: 320px;
+        padding: 10px 15px;
+    }
+    .formHeader {
+        font-size: 1.4rem;
+    }
+    .formLabel {
+        font-size: 0.95rem;
+    }
+    .formInput {
+        font-size: 0.95rem;
+        padding: 7px;
+    }
+    .formError {
+        font-size: 0.85rem;
+    }
+    .formButton {
+        margin-top: 10px;
+        font-size: 1rem;
+    }
+}
+@media (max-width: 800px) {
+    .formContainer {
+        width: 300px;
+    }
+    .formHeader {
+        font-size: 1.2rem;
+    }
+    .formLabel, .formInput {
+        font-size: 0.9rem;
+    }
+    .formButton {
+        font-size: 0.95rem;
+    }
+    .formError {
+        font-size: 0.8rem;
+        padding: 2px 4px;
+    }
+}
+@media (max-width: 500px) {
+    .formContainer {
+        width: 80vw;
+        max-width: 300px;
+    }
+    .formHeader {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+    .formLabel {
+        font-size: 0.85rem;
+    }
+    .formInput {
+        padding: 6px;
+    }
+    .formButton {
+        font-size: 0.9rem;
+    }
 }

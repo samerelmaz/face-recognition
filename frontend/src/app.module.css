@@ -5,10 +5,13 @@
     font-family: 'Manrope', sans-serif;
 }
 :global body {
-    background: linear-gradient(to right, #8E54E9 50%, #4776E6 100%); 
+    background: linear-gradient(to right, #8E54E9 50%, #4776E6 100%);
 }
 :global *:focus {
     outline: none;
+}
+:global body, :global html, :global #root {
+    height: 100%;
 }
 .particles {
     position: fixed;
