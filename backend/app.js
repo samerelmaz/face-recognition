@@ -24,7 +24,9 @@ app.get('/', (req, res) => {
     res.json('works');
 });
 app.post('/signin', (req, res) => {
-    const {email, password} = req.body;
+    let {email, password} = req.body;
+    email = email.trim();
+    password = password.trim();
     if (email !== '' && password !== '') {
         knex('login').select('*').where('email', '=', email)
         .then(loginInfo => {
@@ -54,20 +56,23 @@ app.post('/signin', (req, res) => {
     }
 });
 app.post('/register', (req, res) => {
-    const {name, email, password} = req.body;
+    let {name, email, password} = req.body;
+    name = name.trim();
+    email = email.trim();
+    password = password.trim();
     const simpleEmailRegex=/\S+@\S+\.\S+/; //don't want a very complex regex, this is just demo.
     const simplePasswordRegex=/\S{6,}/;
     if (name !== '' && simpleEmailRegex.test(email) && simplePasswordRegex.test(password)) {
         const saltRounds = 10;
         const hash = bcrypt.hashSync(password, saltRounds);
-        knex('users').select('user_id').orderBy('user_id','desc').limit(1).then((userId) => { 
+        knex('users').select('user_id').orderBy('user_id','desc').limit(1).then(userId => { 
             if (userId.length === 0) {
                 return 0;
             } else {
                 return userId[0].user_id
             }  
         })
-        .then((highestId) => {
+        .then(highestId => {
             knex.transaction(trx => {
                 return trx('login').insert({
                     email: email,
@@ -84,18 +89,15 @@ app.post('/register', (req, res) => {
                 .then(trx.commit)
                 .catch(trx.rollback)
             })
-            .then((userInfo) => res.json(userInfo[0]))
+            .then(userInfo => res.json(userInfo[0]))
             .catch(() => res.status(400).json('Email already exists.'))
         })
         .catch(() => res.status(400).json('Something went wrong.'))
     }
 });
 app.post('/image', (req, res) => {
-    /*face: https://image.shutterstock.com/image-photo/closeup-young-woman-clean-fresh-260nw-1032181513.jpg
-    no-face: https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg 
-    3 face: https://www.learnopencv.com/wp-content/uploads/2016/04/presidential-candidates-original.jpg
-    2 face: https://s3-us-west-2.amazonaws.com/uw-s3-cdn/wp-content/uploads/sites/6/2019/03/04114748/WhichFace5_March4_risreal.png*/
-    const {url, userId} = req.body;
+    let {url, userId} = req.body;
+    url = url.trim();
     clarifai.models.predict("a403429f2ddf4b49b307e318f00e528b", url)
     .then(faceboxData => {
         let boundingBox=[];

@@ -7,7 +7,7 @@ import styles from './app.module.css';
 const particlesParams = {
     "particles": {
       "number": {
-        "value": 50,
+        "value": 100,
         "density": {
           "enable": true,
           "value_area": 800
@@ -70,21 +70,13 @@ const particlesParams = {
     },
     "retina_detect": true
 }
-const deviceWidth = document.getElementById('root').offsetWidth;
-if (deviceWidth > 1000) {
-    particlesParams.particles.number.value = 100
-} else if (deviceWidth > 750) {
-    particlesParams.particles.number.value = 80
-} else {
-    particlesParams.particles.number.value = 50
-}
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             userInfo: null,
-            isLogged: true
+            isLogged: false
         }
         this.handleChangeLogStatus = this.handleChangeLogStatus.bind(this);
     }

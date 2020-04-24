@@ -2,9 +2,30 @@
     position: relative;
     max-width: 500px;
     margin: 0 auto;
+    margin-top: 10px;
 }
 .faceImg {
     width: 100%;
     height: auto;
-    border-radius: 10px
+    border-radius: 10px;
+    color: white;
+}
+.errorMsg {
+    padding: 3px 5px;
+    background-color: rgba(255, 0, 0, 0.7);
+    border-radius: 5px;
+    color: white;
+    margin: 0 auto 5px auto;
+    width: fit-content;
+}
+@media (max-width: 500px) {
+    .imgContainer {
+        max-width: 80vw;
+    } 
+    .faceImg {
+        font-size: 0.8rem;
+    }
+    .errorMsg {
+        font-size: 0.8rem;
+    }
 }

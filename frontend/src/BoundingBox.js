@@ -11,7 +11,7 @@ function BoundingBox(props) {
             right: imgWidth - props.boundingBox[i].right_col*imgWidth,
             bottom: imgHeight - props.boundingBox[i].bottom_row*imgHeight,
             left: props.boundingBox[i].left_col*imgWidth,
-            border: '1px solid #7a00ff'
+            border: '2px solid #ff009c'
         }}></div>)
     }
     return (
