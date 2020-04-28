@@ -46,7 +46,7 @@ class Register extends React.Component {
                 error: "",
                 showLoading: true
             })
-            fetch('http://localhost:3001/register', {
+            fetch('https://future-brain.herokuapp.com/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ class Register extends React.Component {
             })
             .then(res => res.json())
             .then(res => { 
-                if (res === 'Email already exists' || res === 'Something went wrong.') {
+                if (res === 'Email already exists.' || res === 'Something went wrong.') {
                     this.setState({
                         error: res,
                         showLoading: false

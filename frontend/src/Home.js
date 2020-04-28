@@ -10,24 +10,10 @@ class Home extends React.Component {
             showImage: false,
             error: '',
             boundingBox: null
-            //numOfPrevImgs: this.getNumOfPrevImgs()
         }
         this.handleDetectClick=this.handleDetectClick.bind(this);
-        this.handleUrlInput=this.handleUrlInput.bind(this);
-        //this.getNumOfPrevImgs=this.getNumOfPrevImgs.bind(this);
+        this.handleUrlInput=this.handleUrlInput.bind(this); 
     }
-    /*getNumOfPrevImgs() {
-        const windowWidth=document.getElementById('root').offsetWidth;
-        if (windowWidth>a) {
-            return 5
-        } else if (windowWidth>b) {
-            return 4
-        } else if (windowWidth>c) {
-            return 3
-        } else {
-            return 2
-        } 
-    }*/
     handleUrlInput(ev) {
         const imgUrl=ev.target.value;
         this.setState({
@@ -48,7 +34,7 @@ class Home extends React.Component {
                 url: this.state.url,
                 userId: this.props.userInfo.user_id
             };
-            fetch('http://localhost:3001/image', {
+            fetch('https://future-brain.herokuapp.com/image', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

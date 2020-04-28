@@ -33,7 +33,7 @@ class Login extends React.Component {
                 showLoading: true,
                 error: ''
             });
-            fetch('http://localhost:3001/signin', {
+            fetch('https://future-brain.herokuapp.com/signin', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
